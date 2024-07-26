@@ -1,8 +1,8 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FqaXRoLTkzMCIsImEiOiJjbHM0OTdzcTMwMWFzMmpueHRyYnM5M3JvIn0.Rim5QyMVWVCM4y-oJcT2TA'; // Replace with your Mapbox token
 
 const bounds = [
-    [10.26, 60.32], // Southwest coordinates
-    [11.44, 61.21]  // Northeast coordinates
+    [10.00, 60.00], // Southwest coordinates
+    [12.00, 62.00]  // Northeast coordinates
 ];
 
 // Initialize Mapbox map
@@ -49,16 +49,20 @@ const locations = [
     { name: 'Brumunddal', coordinates: [10.9393, 60.8800], url: 'https://www.yr.no/en/content/1-130685/card.html?mode=dark' }
 ];
 
+let markers = [];
+
 // Add markers for each location
 locations.forEach(location => {
     const el = document.createElement('div');
     el.className = 'marker';
 
-    new mapboxgl.Marker(el)
+    const marker = new mapboxgl.Marker(el)
         .setLngLat(location.coordinates)
-        .addTo(map)
-        .getElement()
-        .addEventListener('click', () => showWeatherWidget(location.url));
+        .addTo(map);
+
+    el.addEventListener('click', () => showWeatherWidget(location.url));
+
+    markers.push(marker);
 });
 
 // Function to show weather widget in a popup
@@ -68,6 +72,22 @@ function showWeatherWidget(url) {
     iframe.src = url;
     popup.style.display = 'block';
 }
+
+// Function to hide weather widget
+function hideWeatherWidget() {
+    const popup = document.getElementById('weather-popup');
+    popup.style.display = 'none';
+}
+
+// Toggle weather markers visibility
+document.getElementById('weather-toggle').addEventListener('change', function () {
+    if (this.checked) {
+        markers.forEach(marker => marker.getElement().style.display = 'block');
+    } else {
+        markers.forEach(marker => marker.getElement().style.display = 'none');
+        hideWeatherWidget();
+    }
+});
 
 // Toggle switch to change the base map
 const toggleSwitch = document.getElementById('basemap-toggle');

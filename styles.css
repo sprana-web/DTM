@@ -5,13 +5,29 @@ html {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+}
+
+#side-panel {
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    overflow-y: auto;
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
 
 #map {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 #toggle-container {
@@ -23,7 +39,7 @@ html {
     padding: 5px;
     display: flex;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 .toggle-switch {
@@ -34,7 +50,7 @@ html {
     background: #ccc;
     outline: none;
     border-radius: 20px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     transition: .3s;
     cursor: pointer;
 }
